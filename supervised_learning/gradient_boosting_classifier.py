@@ -20,6 +20,17 @@ def run_gradient_boosting():
     clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42)
     clf.fit(X_train, y_train)
 
+    y_pred = clf.predict(X_test)
+    print("Classification Report:")
+    print(classification_report(y_test, y_pred))
+
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=data.target_names, yticklabels=data.target_names)
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.show()
+
 
 
 if __name__ == "__main__":
