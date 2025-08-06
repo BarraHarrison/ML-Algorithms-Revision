@@ -40,6 +40,16 @@ def run_linear_regression():
     print("\n📊 Feature Coefficients:")
     print(coeffs.sort_values(ascending=False))
 
+    plt.figure(figsize=(8, 6))
+    sns.scatterplot(x=y_test, y=y_pred, alpha=0.5)
+    plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+    plt.xlabel("Actual Median House Value")
+    plt.ylabel("Predicted Median House Value")
+    plt.title("Linear Regression: Predicted vs Actual")
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
 
 if __name__ == "__main__":
     run_linear_regression()
