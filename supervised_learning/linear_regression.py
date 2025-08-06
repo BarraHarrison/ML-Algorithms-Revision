@@ -30,6 +30,16 @@ def run_linear_regression():
     mse = mean_squared_error(y_test, y_pred)
     rmse = np.sqrt(mse)
 
+    print("🔍 Linear Regression Performance:")
+    print(f"R² Score: {r2:.4f}")
+    print(f"MAE: {mae:.4f}")
+    print(f"MSE: {mse:.4f}")
+    print(f"RMSE: {rmse:.4f}")
+
+    coeffs = pd.Series(model.coef_, index=data.feature_names)
+    print("\n📊 Feature Coefficients:")
+    print(coeffs.sort_values(ascending=False))
+
 
 if __name__ == "__main__":
     run_linear_regression()
