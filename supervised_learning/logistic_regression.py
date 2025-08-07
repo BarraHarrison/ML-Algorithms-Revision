@@ -24,7 +24,36 @@ def run_logistic_regression():
     model = LogisticRegression(max_iter=1000, solver="liblinear")
     model.fit(X_train_scaled, y_train)
 
+    y_pred = model.predict(X_test_scaled)
+    y_prob = model.predict_proba(X_test_scaled)[:, 1]
+
+    print("Classification Report:")
+    print(classification_report(y_test, y_pred, target_names=data.target_names))
+
+    cm = confusion_matrix(y_test, y_pred)
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=data.target_names, yticklabels=data.target_names)
+    plt.title("Confusion Matrix")
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.tight_layout()
+    plt.show()
+
+    fpr, tpr, _ = roc_curve(y_test, y_prob)
+    auc_score = roc_auc_score(y_test, y_prob)
+
+    plt.figure(figsize=(6, 5))
+    plt.plot(fpr, tpr, label=f"ROC Curve (AUC = {auc_score:.4f})")
+    plt.plot([0, 1], [0, 1], "k--")
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC Curve")
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
+
     
+
 
 if __name__ == "__main__":
     run_logistic_regression()
