@@ -52,7 +52,19 @@ def run_logistic_regression():
     plt.tight_layout()
     plt.show()
 
-    
+    pca = PCA(n_components=2)
+    X_train_pca = pca.fit(X_train_pca, y_train)
+
+    model_pca = LogisticRegression(max_iter=1000)
+    model_pca.fit(X_train_pca, y_train)
+
+    h = .02
+    x_min, x_max = X_train_pca[:, 0].min() - 1, X_train_pca[:, 0].max() + 1
+    y_min, y_max = X_train_pca[:, 1].min() - 1, X_train_pca[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
+                         np.arange(y_min, y_max, h))
+    Z = model_pca.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
 
 
 if __name__ == "__main__":
