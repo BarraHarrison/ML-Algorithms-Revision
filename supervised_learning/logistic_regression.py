@@ -66,6 +66,15 @@ def run_logistic_regression():
     Z = model_pca.predict(np.c_[xx.ravel(), yy.ravel()])
     Z = Z.reshape(xx.shape)
 
+    plt.figure(figsize=(8, 6))
+    plt.contourf(xx, yy, Z, cmap=plt.cm.coolwarm, alpha=0.3)
+    plt.scatter(X_train_pca[:, 0], X_train_pca[:, 1], c=y_train, cmap=plt.cm.coolwarm, edgecolors='k')
+    plt.title("Decision Boundary (PCA Projection)")
+    plt.xlabel("Principal Component 1")
+    plt.ylabel("Principal Component 2")
+    plt.tight_layout()
+    plt.show()
+
 
 if __name__ == "__main__":
     run_logistic_regression()
