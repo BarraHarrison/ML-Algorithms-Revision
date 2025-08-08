@@ -33,6 +33,13 @@ def run_knn_classifier():
     print(f"✅ Best Parameters: {grid.best_params_}")
     print(f"✅ Best CV Accuracy: {grid.best_score_:.4f}")
 
+    best_knn = grid.best_estimator_
+    y_pred = best_knn.predict(X_test_scaled)
+
+    print("\n📋 Classification Report:")
+    print(classification_report(y_test, y_pred, target_names=data.target_names))
+    print(f"🎯 Test Accuracy: {accuracy_score(y_test, y_pred):.4f}")
+
 
 if __name__ == "__main__":
     run_knn_classifier()
