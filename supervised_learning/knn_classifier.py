@@ -40,6 +40,22 @@ def run_knn_classifier():
     print(classification_report(y_test, y_pred, target_names=data.target_names))
     print(f"🎯 Test Accuracy: {accuracy_score(y_test, y_pred):.4f}")
 
+    cm = confusion_matrix(y_test, y_pred)
+    plt.figure(figsize=(6, 5))
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", xticklabels=data.target_names, yticklabels=data.target_names)
+    plt.xlabel("Predicted")
+    plt.ylabel("True")
+    plt.title("KNN Confusion Matrix")
+    plt.tight_layout()
+    plt.show()
+
+    pca = PCA(n_components=2)
+    X_train_pca = pca.fit_transform(X_train_scaled)
+    X_test_pca = pca.transform(X_test_scaled)
+
+    knn_pca = KNeighborsClassifier(**grid.best_params_)
+    knn_pca.fit(X_train, y_train)
+
 
 if __name__ == "__main__":
     run_knn_classifier()
