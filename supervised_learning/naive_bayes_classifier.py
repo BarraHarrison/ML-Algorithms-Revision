@@ -1,17 +1,21 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
-import matplotlib.pyplot as plt
-import seaborn as sns
+from ucimlrepo import fetch_ucirepo
 
-url = "https://raw.githubusercontent.com/justmarkham/scikit-learn-videos/master/data/sms.tsv"
-df = pd.read_csv(url, sep="\t", header=None, names=["label", "message"])
+sms = fetch_ucirepo(id=228)
+X = sms.data.features['message'] if 'message' in sms.data.features else sms.data.features.iloc[:, 0]
+y = sms.data.targets
 
-df['label'] = df['label'].map({'ham': 0, 'spam': 1})
+df = pd.DataFrame({'message': X, 'label': y.replace({0: 'ham', 1: 'spam'})})
+print(df.head())
 
 X_train, X_test, y_train, y_test = train_test_split(
     df["message"], df["label"], test_size=0.2, random_state=42, stratify=df["label"]
