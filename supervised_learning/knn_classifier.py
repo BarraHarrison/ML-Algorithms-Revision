@@ -22,7 +22,7 @@ def run_knn_classifier():
     X_test_scaled = scaler.transform(X_test)
 
     param_grid = {
-        "n_neighbours": list(range(1, 21)),
+        "n_neighbors": list(range(1, 21)),
         "weights": ["uniform", "distance"],
         "metric": ["euclidean", "manhattan", "minkowski"]
     }
