@@ -43,3 +43,18 @@ plt.ylabel("Actual")
 plt.title("Confusion Matrix")
 plt.show()
 
+x_min, x_max = X_train[:, 0].min() - 1, X_train[:, 0].max() + 1
+y_min, y_max = X_train[:, 1].min() - 1, X_train[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.02),
+                     np.arange(y_min, y_max, 0.02))
+Z = best_svm.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+plt.figure(figsize=(8,6))
+plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.coolwarm)
+plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, s=30, cmap=plt.cm.coolwarm, edgecolors='k')
+plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, s=100, cmap=plt.cm.coolwarm, edgecolors='k', marker='*')
+plt.title("SVM Decision Boundary with Polynomial Kernel")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
