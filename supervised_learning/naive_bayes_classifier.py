@@ -21,3 +21,13 @@ model = Pipeline({
     ("tfidf", TfidfVectorizer(ngram_range=(1,2), stop_words="english", min_df=3)),
     ("nb", MultinomialNB(alpha=0.5))
 })
+
+cv_scores = cross_val_score(model, X_train, y_train, cv=5, scoring="accuracy")
+print(f"Cross-validation Accuracy: {np.mean(cv_scores):.4f}")
+
+model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
