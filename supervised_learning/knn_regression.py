@@ -39,3 +39,19 @@ grid_search = GridSearchCV(
     scoring="r2",
     n_jobs=-1
 )
+
+grid_search.fit(X_train, y_train)
+
+print(f"Best Parameters: {grid_search.best_params_}")
+print(f"Best CV R² Score: {grid_search.best_score_:.4f}")
+
+y_pred = grid_search.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Test MAE: {mae:.4f}")
+print(f"Test R²: {r2:.4f}")
+
+cv_scores = cross_val_score(grid_search.best_estimator_, X, y, cv=5, scoring="r2")
+print(f"Cross-validated R² Scores: {cv_scores}")
+print(f"Mean CV R²: {np.mean(cv_scores):.4f}")
