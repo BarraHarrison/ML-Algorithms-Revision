@@ -31,3 +31,15 @@ y_pred = model.predict(X_test)
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred))
 
+cm = confusion_matrix(y_test, y_pred)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Ham", "Spam"])
+disp.plot(cmap="Blues")
+plt.title("Confusion Matrix - Naive Bayes Spam Classifier")
+plt.show()
+
+nb_classifier = model.named_steps["nb"]
+feature_names = model.named_steps["tfidf"].get_feature_names_out()
+log_prob = nb_classifier.feature_log_prob_[1]
+top_indices = np.argsort(log_prob)[-15:]
+top_features = feature_names[top_indices]
+top_probs = log_prob[top_indices]
