@@ -27,3 +27,19 @@ param_grid = {
     "kernel": ["poly"]
 }
 
+grid_search = GridSearchCV(SVC(), param_grid, cv=5, scoring="accuracy")
+grid_search.fit(X_train, y_train)
+
+best_svm = grid_search.best_estimator_
+y_pred = best_svm.predict(X_test)
+
+print("Best Parameters:", grid_search.best_params_)
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+plt.figure(figsize=(5,4))
+sns.heatmap(confusion_matrix(y_test, y_pred), annot=True, fmt="d", cmap="Blues")
+plt.xlabel("Predicted")
+plt.ylabel("Actual")
+plt.title("Confusion Matrix")
+plt.show()
+
