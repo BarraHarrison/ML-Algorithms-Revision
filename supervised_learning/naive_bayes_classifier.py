@@ -43,3 +43,10 @@ log_prob = nb_classifier.feature_log_prob_[1]
 top_indices = np.argsort(log_prob)[-15:]
 top_features = feature_names[top_indices]
 top_probs = log_prob[top_indices]
+
+plt.figure(figsize=(10,5))
+sns.barplot(x=top_probs, y=top_features, palette="viridis")
+plt.xlabel("Log Probability (Spam Class)")
+plt.ylabel("Feature")
+plt.title("Top Features Indicating Spam - Naive Bayes")
+plt.show()
