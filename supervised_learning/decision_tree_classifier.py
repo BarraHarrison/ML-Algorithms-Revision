@@ -22,3 +22,10 @@ data["risk"] = ((data["age"] > 55) &
                 (data["blood_pressure"] > 140) |
                 (data["smoker"] == 1) & (data["diabetes"] == 1)).astype(int)
 
+X = data.drop("risk", axis=1)
+y = data["risk"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+model = DecisionTreeClassifier(max_depth=4, criterion="entropy", random_state=42)
+model.fit(X_train, y_train)
