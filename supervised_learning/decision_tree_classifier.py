@@ -17,3 +17,8 @@ data = pd.DataFrame({
     "diabetes": np.random.choice([0, 1], size=data_size)
 })
 
+data["risk"] = ((data["age"] > 55) &
+                (data["cholesterol"] > 240) &
+                (data["blood_pressure"] > 140) |
+                (data["smoker"] == 1) & (data["diabetes"] == 1)).astype(int)
+
