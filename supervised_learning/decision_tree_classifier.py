@@ -29,3 +29,16 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 model = DecisionTreeClassifier(max_depth=4, criterion="entropy", random_state=42)
 model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+plt.figure(figsize=(14,8))
+plot_tree(model, feature_names=X.columns, class_names=["Low Risk", "High Risk"], filled=True)
+plt.show()
+
+new_patient = np.array([[60, 260, 150, 1, 1]])
+probabilities = model.predict_proba(new_patient)
+print("Risk Probabilities:", probabilities)
