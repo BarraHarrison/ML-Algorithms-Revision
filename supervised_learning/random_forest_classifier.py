@@ -18,3 +18,10 @@ rf = RandomForestClassifier(
 )
 rf.fit(X_train, y_train)
 
+y_pred = rf.predict(X_test)
+
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print(classification_report(y_test, y_pred))
+
+importances = pd.Series(rf.feature_importances_, index=X.columns).sort_values(ascending=False)
+print("\nTop Features:\n", importances.head())
