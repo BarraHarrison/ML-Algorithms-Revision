@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, ConfusionMatrixDisplay, accuracy_score
 from ucimlrepo import fetch_ucirepo
@@ -11,6 +12,9 @@ from ucimlrepo import fetch_ucirepo
 heart = fetch_ucirepo(id=45)
 X = heart.data.features
 y = heart.data.targets.squeeze()
+
+imputer = SimpleImputer(strategy="median")
+X_imputed = pd.DataFrame(imputer.fit_transform(X), columns=X.columns)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
