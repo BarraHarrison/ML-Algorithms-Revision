@@ -30,7 +30,8 @@ ada_model.fit(X_train, y_train)
 
 y_pred = ada_model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
-print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=["No Disease", "Disease"]))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names = ["No Disease", "Mild", "Moderate", "Severe", "Very Severe"]
+))
 
 ConfusionMatrixDisplay.from_estimator(
     ada_model, X_test, y_test, display_labels=["No Disease", "Disease"], cmap=plt.cm.Blues
