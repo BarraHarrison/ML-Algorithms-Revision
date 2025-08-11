@@ -33,8 +33,14 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names = ["No Disease", "Mild", "Moderate", "Severe", "Very Severe"]
 ))
 
+labels = ["No Disease", "Mild", "Moderate", "Severe", "Very Severe"]
+
 ConfusionMatrixDisplay.from_estimator(
-    ada_model, X_test, y_test, display_labels=["No Disease", "Disease"], cmap=plt.cm.Blues
+    ada_model,
+    X_test,
+    y_test,
+    display_labels=labels,
+    cmap=plt.cm.Blues
 )
 plt.title("AdaBoost Confusion Matrix")
 plt.show()
