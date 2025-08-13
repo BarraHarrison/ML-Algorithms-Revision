@@ -39,6 +39,14 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nClassification Report:\n",
         classification_report(y_test, y_pred, target_names=("No Disease", "Disease")))
 
+explainer = shap.Explainer(best_gb, X_train)
+shap_values = explainer(X_test)
+
+shap.summary_plot(shap_values, X_test, feature_names=X.columns)
+shap.initjs()
+shap.force_plot(explainer.expected_value[1], shap_values[1].values, X_test.iloc[1])
+
+
 ConfusionMatrixDisplay.from_estimator(
     best_gb, X_test, y_test, display_labels=["No Disease", "Disease"], cmap=plt.cm.Blues
 )
