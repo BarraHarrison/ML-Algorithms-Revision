@@ -28,3 +28,8 @@ param_grid = {
     "subsample": [0.8, 1.0]
 }
 
+grid_search = GridSearchCV(gb, param_grid, cv=5, scoring="accuracy", n_jobs=-1)
+grid_search.fit(X_train, y_train)
+
+print("Best Parameters:", grid_search.best_params_)
+best_gb = grid_search.best_estimator_
