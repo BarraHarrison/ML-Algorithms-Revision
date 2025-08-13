@@ -44,3 +44,14 @@ ConfusionMatrixDisplay.from_estimator(
 )
 plt.title("Gradient Boosting Confusion Matrix")
 plt.show()
+
+importances = best_gb.feature_importances_
+indices = np.argsort(importances)[::-1]
+plt.figure(figsize=(10, 6))
+plt.title("Gradient Boosting Feature Importances")
+plt.bar(range(X.shape[1]), importances[indices], align="center")
+plt.xticks(range(X.shape[1]), X.columns[indices], rotation=45)
+plt.ylabel("Importance Score")
+plt.tight_layout()
+plt.show()
+
