@@ -33,3 +33,14 @@ grid_search.fit(X_train, y_train)
 
 print("Best Parameters:", grid_search.best_params_)
 best_gb = grid_search.best_estimator_
+
+y_pred = best_gb.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n",
+        classification_report(y_test, y_pred, target_names=("No Disease", "Disease")))
+
+ConfusionMatrixDisplay.from_estimator(
+    best_gb, X_test, y_test, display_labels=["No Disease", "Disease"], cmap=plt.cm.Blues
+)
+plt.title("Gradient Boosting Confusion Matrix")
+plt.show()
