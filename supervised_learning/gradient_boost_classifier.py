@@ -42,6 +42,13 @@ print("\nClassification Report:\n",
 explainer = shap.Explainer(best_gb, X_train)
 shap_values = explainer(X_test)
 
+feature_importance = np.abs(shap_values.values).mean(axis=0)
+top_features = np.argsort(feature_importance)[-5:]
+
+for idx in reversed(top_features):
+    feature_name = X_test.columns[idx]
+    shap.dependence_plot(feature_name, shap_values.values, X_test)
+
 shap.summary_plot(shap_values, X_test, feature_names=X.columns)
 shap.initjs()
 shap.force_plot(explainer.expected_value[1], shap_values[1].values, X_test.iloc[1])
