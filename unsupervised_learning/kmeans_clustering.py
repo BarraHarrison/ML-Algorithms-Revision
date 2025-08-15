@@ -33,3 +33,17 @@ plt.show()
 optimal_k = K[np.argmax(silhouette_scores)]
 kmeans = KMeans(n_clusters=optimal_k, random_state=42)
 df["Cluster"] = kmeans.fit_predict(scaled_data)
+
+pca = PCA(n_components=2)
+reduced_data = pca.fit_transform(scaled_data)
+df["PCA1"] = reduced_data[:,0]
+df["PCA2"] = reduced_data[:,1]
+
+plt.figure(figsize=(8,6))
+sns.scatterplot(data=df, x="PCA1", y="PCA2", hue="Cluster", palette="tab10")
+plt.title(f"K-Means Clusters (k={optimal_k}) on Wholesale Customers")
+plt.show()
+
+cluster_profile = df.groupby("Cluster").mean()
+print("\nCluster Profiles:")
+print(cluster_profile)
