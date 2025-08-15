@@ -36,8 +36,11 @@ best_gb = grid_search.best_estimator_
 
 y_pred = best_gb.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
+
+
+class_names = np.unique(y).astype(str)
 print("\nClassification Report:\n",
-        classification_report(y_test, y_pred, target_names=("No Disease", "Disease")))
+        classification_report(y_test, y_pred, target_names=class_names))
 
 explainer = shap.Explainer(best_gb, X_train)
 shap_values = explainer(X_test)
@@ -55,7 +58,7 @@ shap.force_plot(explainer.expected_value[1], shap_values[1].values, X_test.iloc[
 
 
 ConfusionMatrixDisplay.from_estimator(
-    best_gb, X_test, y_test, display_labels=["No Disease", "Disease"], cmap=plt.cm.Blues
+    best_gb, X_test, y_test, display_labels=class_names, cmap=plt.cm.Blues
 )
 plt.title("Gradient Boosting Confusion Matrix")
 plt.show()
