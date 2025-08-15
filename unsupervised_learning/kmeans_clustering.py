@@ -10,5 +10,7 @@ from sklearn.metrics import silhouette_score
 
 url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00292/Wholesale%20customers%20data.csv"
 df = pd.read_csv(url)
-
 print(df.head())
+
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(df)
