@@ -29,3 +29,7 @@ plt.xlabel("Number of clusters (k)")
 plt.ylabel("Silhouette Score")
 plt.title("Optimal number of clusters (k) using the Silhouette Score")
 plt.show()
+
+optimal_k = K[np.argmax(silhouette_scores)]
+kmeans = KMeans(n_clusters=optimal_k, random_state=42)
+df["Cluster"] = kmeans.fit_predict(scaled_data)
