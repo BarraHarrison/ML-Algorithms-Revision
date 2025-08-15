@@ -70,10 +70,17 @@ for class_idx, class_name in enumerate(class_names):
     plt.title(f"SHAP Summary Plot - Class: {class_name}")
     plt.show()
 
-    
-shap.initjs()
-shap.force_plot(explainer.expected_value[1], shap_values[1].values, X_test.iloc[1])
 
+shap.initjs()
+for class_idx, class_name in enumerate(class_names):
+    shap.force_plot(
+        explainer.expected_value[class_idx],
+        shap_values[class_idx][1, :],
+        X_test.iloc[1],
+        matplotlib=True
+    )
+    plt.title(f"SHAP Force Plot - Class: {class_name}")
+    plt.show()
 
 ConfusionMatrixDisplay.from_estimator(
     best_gb, X_test, y_test, display_labels=class_names, cmap=plt.cm.Blues
