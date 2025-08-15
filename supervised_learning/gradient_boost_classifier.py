@@ -60,7 +60,17 @@ for class_idx, class_name in enumerate(class_names):
         plt.title(f"SHAP Dependence Plot - {feature_name} ({class_name})")
         plt.show()
 
-shap.summary_plot(shap_values, X_test, feature_names=X.columns)
+for class_idx, class_name in enumerate(class_names):
+    shap.summary_plot(
+        shap_values[class_idx],
+        X_test,
+        feature_names=X.columns,
+        show=False
+    )
+    plt.title(f"SHAP Summary Plot - Class: {class_name}")
+    plt.show()
+
+    
 shap.initjs()
 shap.force_plot(explainer.expected_value[1], shap_values[1].values, X_test.iloc[1])
 
