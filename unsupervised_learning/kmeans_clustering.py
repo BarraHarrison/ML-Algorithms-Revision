@@ -14,3 +14,11 @@ print(df.head())
 
 scaler = StandardScaler()
 scaled_data = scaler.fit_transform(df)
+
+silhouette_scores = []
+K = range(2, 10)
+for k in K:
+    Kmeans = KMeans(n_clusters=k, random_state=42)
+    Kmeans.fit(scaled_data)
+    score = silhouette_score(scaled_data, Kmeans.labels_)
+    silhouette_scores.append(score)
