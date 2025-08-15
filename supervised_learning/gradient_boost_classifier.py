@@ -48,9 +48,17 @@ shap_values = explainer(X_test)
 feature_importance = np.abs(shap_values.values).mean(axis=0)
 top_features = np.argsort(feature_importance)[-5:]
 
-for idx in reversed(top_features):
-    feature_name = X_test.columns[idx]
-    shap.dependence_plot(feature_name, shap_values.values, X_test)
+for class_idx, class_name in enumerate(class_names):
+    for idx in reversed(top_features):
+        feature_name = X_test.columns[idx]
+        shap.dependence_plot(
+            feature_name,
+            shap_values[class_idx],
+            X_test,
+            feature_names=X_test.columns
+        )
+        plt.title(f"SHAP Dependence Plot - {feature_name} ({class_name})")
+        plt.show()
 
 shap.summary_plot(shap_values, X_test, feature_names=X.columns)
 shap.initjs()
