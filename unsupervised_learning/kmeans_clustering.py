@@ -22,3 +22,10 @@ for k in K:
     Kmeans.fit(scaled_data)
     score = silhouette_score(scaled_data, Kmeans.labels_)
     silhouette_scores.append(score)
+
+plt.figure(figsize=(6,4))
+plt.plot(K, silhouette_scores, "bo-")
+plt.xlabel("Number of clusters (k)")
+plt.ylabel("Silhouette Score")
+plt.title("Optimal number of clusters (k) using the Silhouette Score")
+plt.show()
