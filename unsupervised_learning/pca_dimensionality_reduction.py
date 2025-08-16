@@ -19,3 +19,19 @@ clusters = kmeans.fit_predict(X_pca)
 
 score = adjusted_rand_score(y, clusters)
 print("Adjusted Rand Index (ARI):", score)
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=y, cmap='tab10', s=10)
+plt.title("PCA Projection (True Labels)")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+
+plt.subplot(1, 2, 2)
+plt.scatter(X_pca[:, 0], X_pca[:, 1], c=clusters, cmap='tab10', s=10)
+plt.title("PCA Projection (KMeans Clusters)")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+
+plt.tight_layout()
+plt.show()
