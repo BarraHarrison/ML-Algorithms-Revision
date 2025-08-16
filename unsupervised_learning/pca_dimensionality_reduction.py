@@ -7,3 +7,10 @@ from sklearn.metrics import adjusted_rand_score
 
 digits = load_digits()
 X, y = digits.data, digits.target
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+print("Explained variance ratio (2 components):", pca.explained_variance_ratio_)
+print("Total variance explained:", np.sum(pca.explained_variance_ratio_))
+
